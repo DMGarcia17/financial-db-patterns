@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: financial_db
+    environment:
+      POSTGRES_DB: financial_cards
+      POSTGRES_USER: finuser
+      POSTGRES_PASSWORD: finpass123
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schemas:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: financial_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@financial.dev
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
