@@ -128,7 +128,7 @@ INSERT INTO cards.card_travel_report (
     countries, reported_by
 ) VALUES (
     2,
-    CURRENT_DATE + INTERVAL '5 days',
+    CURRENT_DATE - INTERVAL '15 days',
     CURRENT_DATE + INTERVAL '15 days',
     ARRAY['USA', 'MEX'],
     'AGENT_01'
